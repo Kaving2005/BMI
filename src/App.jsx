@@ -53,8 +53,8 @@ function App() {
         {/* Left Side Image */}
         <div className="col-md-5 d-none d-md-block p-0">
           <img
-            src="src\assets\BMI1.jpeg"
-            alt="src\assets\BMI1.jpeg"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Q6vndqKEM0Ghxk9QGGtM_TQj0GVxmEbU8g&s"
+            alt=""
             className="img-fluid h-100"
             style={{ objectFit: "cover" }}
           />
