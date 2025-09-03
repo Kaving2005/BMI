@@ -54,7 +54,7 @@ function App() {
         <div className="col-md-5 d-none d-md-block p-0">
           <img
             src="src\assets\BMI1.jpeg"
-            alt="BMI"
+            alt="src\assets\BMI1.jpeg"
             className="img-fluid h-100"
             style={{ objectFit: "cover" }}
           />
