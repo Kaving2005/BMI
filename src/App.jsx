@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import bmi1 from "./assets/BMI1.jpeg";
 
 function App() {
   const [height, setHeight] = useState("");
@@ -53,8 +54,8 @@ function App() {
         {/* Left Side Image */}
         <div className="col-md-5 d-none d-md-block p-0">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Q6vndqKEM0Ghxk9QGGtM_TQj0GVxmEbU8g&s"
-            alt=""
+            src={bmi1}
+            alt="BMI"
             className="img-fluid h-100"
             style={{ objectFit: "cover" }}
           />
