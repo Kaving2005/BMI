@@ -1,67 +1,117 @@
-import { useState } from 'react'
-
-import './App.css'
+import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  const[height, setHeight]=useState("");
-  const[weight, setWeight]=useState("");
-  const[bmi, setBmi]=useState(null);
-  const[bmistatus, setStatus]=useState("");
-  const[errmsg, setErrmsg]=useState("");
-  const calculatebmi=()=>{
-    const isvalidheight=/^\d+$/.test(height);//regular exprestion
-    const isvalidweight=/^\d+$/.test(weight);//regular exprestion
-    if(isvalidheight && isvalidweight){
-      const heightmeter=height/100;
-      const bmivalue=weight/(heightmeter*heightmeter);
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [bmi, setBmi] = useState(null);
+  const [bmistatus, setStatus] = useState("");
+  const [errmsg, setErrmsg] = useState("");
+
+  const calculatebmi = () => {
+    if (!height || !weight) {
+      setErrmsg("Height and weight cannot be empty.");
+      return;
+    }
+
+    const isvalidheight = /^\d+(\.\d+)?$/.test(height);
+    const isvalidweight = /^\d+(\.\d+)?$/.test(weight);
+
+    if (isvalidheight && isvalidweight) {
+      const heightmeter = height / 100;
+      const bmivalue = weight / (heightmeter * heightmeter);
       setBmi(bmivalue.toFixed(2));
-      if (bmivalue<18.5){
-        setStatus("Under Weight");
-      }else if(bmivalue>=18.5 && bmivalue<24.9){
+
+      if (bmivalue < 18.5) {
+        setStatus("Underweight");
+      } else if (bmivalue >= 18.5 && bmivalue <= 24.9) {
         setStatus("Normal Weight");
-      }else if(bmivalue>=25 && bmivalue<29.9){
-        setStatus("Over Weight");
-      }else{
+      } else if (bmivalue >= 25 && bmivalue <= 29.9) {
+        setStatus("Overweight");
+      } else {
         setStatus("Obese");
       }
-      setErrmsg("")
-    }else{
+      setErrmsg("");
+    } else {
       setBmi(null);
       setStatus("");
-      setErrmsg("Please enter Valid numeric value for height and weight.")
+      setErrmsg("Please enter valid numeric values (numbers or decimals).");
     }
-  }
-  const clearall=()=>{
+  };
+
+  const clearall = () => {
     setHeight("");
     setWeight("");
     setBmi(null);
     setStatus("");
-  }
+    setErrmsg("");
+  };
+
   return (
-    <>
-     <div className='bmi-calculator'>
-      <div className="box"></div>
-      <div className="data">
-        <h1>BMI Calculator</h1>
-        {errmsg && <p className='error'>{errmsg}</p>}
-        <div className="input-container">
-          <label htmlFor='height'>Height (cm):</label>
-          <input type="text" id="height" value={height} onChange={(e)=>setHeight(e.target.value)}/>
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="row shadow-lg rounded bg-white overflow-hidden" style={{ maxWidth: "900px" }}>
+        {/* Left Side Image */}
+        <div className="col-md-5 d-none d-md-block p-0">
+          <img
+            src="src\assets\BMI1.jpeg"
+            alt="BMI"
+            className="img-fluid h-100"
+            style={{ objectFit: "cover" }}
+          />
         </div>
-        <div className="input-container">
-          <label htmlFor='weight'>Weight (kg):</label>
-          <input type="text" id="weight" value={weight} onChange={(e)=>setWeight(e.target.value)}/>
+
+        {/* Right Side Form */}
+        <div className="col-md-7 p-4">
+          <h1 className="text-center text-primary mb-4">BMI Calculator</h1>
+          {errmsg && <div className="alert alert-danger">{errmsg}</div>}
+
+          <div className="mb-3">
+            <label htmlFor="height" className="form-label fw-bold text-secondary">
+              Height (cm):
+            </label>
+            <input
+              type="text"
+              id="height"
+              className="form-control"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              placeholder="Enter your height"
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="weight" className="form-label fw-bold text-secondary">
+              Weight (kg):
+            </label>
+            <input
+              type="text"
+              id="weight"
+              className="form-control"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              placeholder="Enter your weight"
+            />
+          </div>
+
+          <div className="d-flex gap-2">
+            <button className="btn btn-primary w-50" onClick={calculatebmi}>
+              Calculate BMI
+            </button>
+            <button className="btn btn-danger w-50" onClick={clearall}>
+              Clear
+            </button>
+          </div>
+
+          {bmi !== null && (
+            <div className="alert alert-info mt-4">
+              <p className="mb-1 fw-bold">Your BMI: {bmi}</p>
+              <p className="mb-0">Status: {bmistatus}</p>
+            </div>
+          )}
         </div>
-        <button onClick={calculatebmi}>Calculate BMI</button>
-        <button onClick={clearall}>Clear</button>
-       {bmi!==null && ( <div className="result">
-          <p>Your BMI is:{bmi}</p>
-          <p>State:{bmistatus}</p>
-        </div>)}
       </div>
-     </div>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
