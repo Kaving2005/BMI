@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import bmi1 from "./assets/BMI1.jpeg";
+import bmi1 from "./assets/bmi.jpg";
 
 function App() {
   const [height, setHeight] = useState("");
@@ -50,7 +50,7 @@ function App() {
 
   return (
     <div className="container d-flex justify-content-center align-items-center min-vh-100">
-      <div className="row shadow-lg rounded bg-white overflow-hidden" style={{ maxWidth: "900px" }}>
+      <div className="row shadow-lg rounded bg-white overflow-hidden" style={{ maxWidth: "950px" }}>
         {/* Left Side Image */}
         <div className="col-md-5 d-none d-md-block p-0">
           <img
